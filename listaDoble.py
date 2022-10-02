@@ -121,144 +121,7 @@ class ListaDoble:
         else:
             raise Exception('Índice no válido. Está por fuera del rango.')
 
-    def cargarEmpresas(self):
-
-        temp = self.primero
-
-        # Lista para las empresas
-        listaEmpresas = ListaDoble()
-
-        # Atributos de la empresa
-        idEmpresa = ''
-        nameEmpresa = ''
-        abreviatura = ''
-
-        # Lista Puntos Atencion
-        listaPA = ListaDoble()
-
-        # Atributos Punto de Atencion
-        idPA= ''
-        nombrePA = ''
-        direccionPA = ''
-
-
-        # Lista Escritorios
-        listaDesks = ListaDoble()
-
-        # Atributos Escritorio
-        idDesk = ''
-        identificacionDesk = ''
-        nombreEncargadoDesk = ''
-        activeDesk = ''
-
-
-        # Lista Transacciones
-        listaTrans = ListaDoble()
-
-        # Atributos Transaccion
-        idTrans = ''
-        nombreTrans = ''
-        tiempoTrans = ''
-
-        # Lista Clientes
-        listaClientes = ListaDoble() # Se mantendra vacia 
-
-
-        # Inicio Lectura XML
-
-        while temp != None:
-
-            tree =ET.parse(temp.dato)
-            root = tree.getroot()
-
-            for elemento in root:
-
-                if elemento.tag == 'empresa':
-
-                    idEmpresa = elemento.get('id')
-
-                    for subelemeto in elemento:
-                        
-                        if subelemeto.tag == 'nombre':
-
-                            nameEmpresa = subelemeto.text
-
-                        elif subelemeto.tag == 'abreviatura':
-
-                            abreviatura = subelemeto.text
-
-                        elif subelemeto.tag == 'listaPuntosAtencion':
-
-                            for sub in subelemeto:
-
-                                if sub.tag == 'puntoAtencion':
-
-                                    idPA = sub.get('id')
-
-                                    for a in sub:
-
-                                        if a.tag == 'nombre':
-
-                                            nombrePA = a.text
-
-                                        elif a.tag == 'direccion':
-
-                                            direccionPA = a.text
-
-                                        elif a.tag == 'listaEscritorios':
-
-                                            for sub2 in a:
-
-                                                if sub2.tag =='escritorio':
-
-                                                    idDesk = sub2.get('id')
-                                                    
-                                                    for b in sub2:
-                                                        if b.tag == 'identificacion':
-                                                            identificacionDesk = b.text
-                                                        elif b.tag == 'encargado':
-                                                            nombreEncargadoDesk = b.text
-
-                                                escritorio = Escritorio(idDesk,identificacionDesk,nombreEncargadoDesk,False)
-                                                listaDesks.insertar(escritorio)
-                                                idDesk = ''
-                                                identificacionDesk = ''
-                                                nombreEncargadoDesk = ''
-
-                                puntoAtencion = PuntoAtencion(idPA,nombrePA,direccionPA,listaDesks,listaClientes)
-                                listaPA.insertar(puntoAtencion)
-                                idPA = ''
-                                nombrePA = ''
-                                direccionPA = ''
-                                listaDesks = ListaDoble()
-                                listaClientes = ListaDoble()
-
-                        elif subelemeto.tag == 'listaTransacciones':
-                            for sub3 in subelemeto:
-                                if sub3.tag == 'transaccion':
-                                    idTrans = sub3.get('id')
-                                    for c in sub3:
-                                        if c.tag == 'nombre':
-                                            nombreTrans = c.text 
-                                        elif c.tag == 'tiempoAtencion':
-                                            tiempoTrans = c.text                     
-
-                                transaccion = Transaccion(idTrans,nombreTrans,tiempoTrans)
-                                listaTrans.insertar(transaccion)
-                                idTrans = ''
-                                nombreTrans = ''
-                                tiempoTrans = ''
-                print("####################")
-                empresa = Empresa(idEmpresa,nameEmpresa,abreviatura,listaPA,listaTrans)
-                listaEmpresas.insertar(empresa)
-                idEmpresa = ''
-                nameEmpresa = ''
-                abreviatura = ''
-                listaPA = ListaDoble()
-                listaTrans = ListaDoble()
-            
-            temp = temp.siguiente
-        return listaEmpresas         
+      
 
 
     def mostrarEmpresas(self):
@@ -309,112 +172,7 @@ class ListaDoble:
 
             temp = temp.siguiente
 
-# Cargar Segundo archivo XML
 
-    def cargarConfiguracion(self):
-
-        temp = self.primero
-
-        # Lista para la configuracion
-        listaConfi = ListaDoble()
-
-        # Atributos de la configuracion
-        idConfi = ''
-        idEmpresa = ''
-        idPunto = ''
-
-        # Lista escritorios Activos
-        listaActiveDesks = ListaDoble()
-
-        # Atributos escritorios activos
-        idDesk = ''
-
-        # Lista Clientes
-        listaClientes = ListaDoble()
-
-        # Atributos Clientes
-        dpi = '' 
-        nombreCliente = '' 
-
-        # Lista Transacciones
-        listaTransClientes = ListaDoble()
-
-        # Atributos Transaccion
-        idTrans = ''
-        cantidadTrans = ''
-
-
-
-        # Inicio Lectura XML
-
-        while temp != None:
-
-            tree = ET.parse(temp.dato)
-            root = tree.getroot()
-
-            for elemento in root:
-
-                if elemento.tag == 'configInicial':
-
-                    idConfi = elemento.get('id')
-                    idEmpresa = elemento.get('idEmpresa')
-                    idPunto = elemento.get('idPunto')
-
-                    for subelemeto in elemento:
-
-                        if subelemeto.tag == 'escritoriosActivos':
-
-                            for sub in subelemeto:
-
-                                if sub.tag == 'escritorio':
-
-                                    idDesk = sub.get('idEscritorio')
-
-                                escritoriosActivos = ConfiEscritorio(idDesk)
-                                listaActiveDesks.insertar(escritoriosActivos)
-                                idDesk = ''
-                                
-                                
-                        elif subelemeto.tag == 'listadoClientes':
-
-                            for sub3 in subelemeto:
-
-                                if sub3.tag == 'cliente':
-
-                                    dpi = sub3.get('dpi')
-
-                                    for c in sub3:
-
-                                        if c.tag == 'nombre':
-                                            nombreCliente = c.text
-
-                                        elif c.tag == 'listadoTransacciones':
-
-                                            for a in c:
-                                                if a.tag == 'transaccion':
-
-                                                    idTrans = a.get(
-                                                        'idTransaccion')
-                                                    cantidadTrans = a.get(
-                                                        'cantidad')
-
-                                                transaccion = ClienteTrans(idTrans,cantidadTrans)
-                                                listaTransClientes.insertar(transaccion)
-                                
-                                cliente = Cliente(dpi,nombreCliente,listaTransClientes)
-                                listaClientes.insertar(cliente)
-                                listaTransClientes = ListaDoble()
-                                
-                print("####################")
-                confiInicial = ConfiguracionInical(
-                    idConfi, idEmpresa, idPunto, listaActiveDesks, listaClientes)
-                listaConfi.insertar(confiInicial)
-
-                listaActiveDesks = ListaDoble()
-                listaClientes = ListaDoble()
-
-            temp = temp.siguiente
-        return listaConfi
 
     def mostrarConfiguracion(self):
 
@@ -463,3 +221,183 @@ class ListaDoble:
                 temp.dato.idTrans, temp.dato.cantTrans))
 
             temp = temp.siguiente
+
+
+
+    
+def cargarEmpresas(ruta, listaEmpresas):
+    # temp = self.primero
+    # Lista para las empresas
+    # listaEmpresas = ListaDoble()
+    # Atributos de la empresa
+    idEmpresa = ''
+    nameEmpresa = ''
+    abreviatura = ''
+    # Lista Puntos Atencion
+    listaPA = ListaDoble()
+    # Atributos Punto de Atencion
+    idPA = ''
+    nombrePA = ''
+    direccionPA = ''
+    # Lista Escritorios
+    listaDesks = ListaDoble()
+    # Atributos Escritorio
+    idDesk = ''
+    identificacionDesk = ''
+    nombreEncargadoDesk = ''
+    activeDesk = ''
+    # Lista Transacciones
+    listaTrans = ListaDoble()
+    # Atributos Transaccion
+    idTrans = ''
+    nombreTrans = ''
+    tiempoTrans = ''
+    # Lista Clientes
+    listaClientes = ListaDoble()  # Se mantendra vacia
+    # Inicio Lectura XML
+    # while temp != None:
+    # while ruta != None:
+        # tree = ET.parse(temp.dato)
+    tree = ET.parse(ruta)
+    root = tree.getroot()
+    for elemento in root:
+        if elemento.tag == 'empresa':
+            idEmpresa = elemento.get('id')
+            for subelemeto in elemento:
+                if subelemeto.tag == 'nombre':
+                    nameEmpresa = subelemeto.text
+                elif subelemeto.tag == 'abreviatura':
+                    abreviatura = subelemeto.text
+                elif subelemeto.tag == 'listaPuntosAtencion':
+                    for sub in subelemeto:
+                        if sub.tag == 'puntoAtencion':
+                            idPA = sub.get('id')
+                            for a in sub:
+                                if a.tag == 'nombre':
+                                    nombrePA = a.text
+                                elif a.tag == 'direccion':
+                                    direccionPA = a.text
+                                elif a.tag == 'listaEscritorios':
+                                    for sub2 in a:
+                                        if sub2.tag == 'escritorio':
+                                            idDesk = sub2.get('id')
+                                            for b in sub2:
+                                                if b.tag == 'identificacion':
+                                                    identificacionDesk = b.text
+                                                elif b.tag == 'encargado':
+                                                    nombreEncargadoDesk = b.text
+                                        escritorio = Escritorio(
+                                            idDesk, identificacionDesk, nombreEncargadoDesk, False)
+                                        listaDesks.insertar(escritorio)
+                                        idDesk = ''
+                                        identificacionDesk = ''
+                                        nombreEncargadoDesk = ''
+                        puntoAtencion = PuntoAtencion(
+                            idPA, nombrePA, direccionPA, listaDesks, listaClientes)
+                        listaPA.insertar(puntoAtencion)
+                        idPA = ''
+                        nombrePA = ''
+                        direccionPA = ''
+                        listaDesks = ListaDoble()
+                        listaClientes = ListaDoble()
+                elif subelemeto.tag == 'listaTransacciones':
+                    for sub3 in subelemeto:
+                        if sub3.tag == 'transaccion':
+                            idTrans = sub3.get('id')
+                            for c in sub3:
+                                if c.tag == 'nombre':
+                                    nombreTrans = c.text
+                                elif c.tag == 'tiempoAtencion':
+                                    tiempoTrans = c.text
+                        transaccion = Transaccion(
+                            idTrans, nombreTrans, tiempoTrans)
+                        listaTrans.insertar(transaccion)
+                        idTrans = ''
+                        nombreTrans = ''
+                        tiempoTrans = ''
+            print("####################")
+            empresa = Empresa(idEmpresa, nameEmpresa,
+                              abreviatura, listaPA, listaTrans)
+            listaEmpresas.insertar(empresa)
+            idEmpresa = ''
+            nameEmpresa = ''
+            abreviatura = ''
+            listaPA = ListaDoble()
+            listaTrans = ListaDoble()
+            # temp = temp.siguiente
+
+    return listaEmpresas
+
+
+# Cargar Segundo archivo XML
+
+
+def cargarConfiguracion(listaConfi, ruta):
+
+    # temp = self.primero
+    # Lista para la configuracion
+    # listaConfi = ListaDoble()
+    # Atributos de la configuracion
+    idConfi = ''
+    idEmpresa = ''
+    idPunto = ''
+    # Lista escritorios Activos
+    listaActiveDesks = ListaDoble()
+    # Atributos escritorios activos
+    idDesk = ''
+    # Lista Clientes
+    listaClientes = ListaDoble()
+    # Atributos Clientes
+    dpi = ''
+    nombreCliente = ''
+    # Lista Transacciones
+    listaTransClientes = ListaDoble()
+    # Atributos Transaccion
+    idTrans = ''
+    cantidadTrans = ''
+    # Inicio Lectura XML
+    # while temp != None:
+    tree = ET.parse(ruta)
+    root = tree.getroot()
+    for elemento in root:
+        if elemento.tag == 'configInicial':
+            idConfi = elemento.get('id')
+            idEmpresa = elemento.get('idEmpresa')
+            idPunto = elemento.get('idPunto')
+            for subelemeto in elemento:
+                if subelemeto.tag == 'escritoriosActivos':
+                    for sub in subelemeto:
+                        if sub.tag == 'escritorio':
+                            idDesk = sub.get('idEscritorio')
+                        escritoriosActivos = ConfiEscritorio(idDesk)
+                        listaActiveDesks.insertar(escritoriosActivos)
+                        idDesk = ''
+                elif subelemeto.tag == 'listadoClientes':
+                    for sub3 in subelemeto:
+                        if sub3.tag == 'cliente':
+                            dpi = sub3.get('dpi')
+                            for c in sub3:
+                                if c.tag == 'nombre':
+                                    nombreCliente = c.text
+                                elif c.tag == 'listadoTransacciones':
+                                    for a in c:
+                                        if a.tag == 'transaccion':
+                                            idTrans = a.get(
+                                                'idTransaccion')
+                                            cantidadTrans = a.get(
+                                                'cantidad')
+                                        transaccion = ClienteTrans(
+                                            idTrans, cantidadTrans)
+                                        listaTransClientes.insertar(
+                                            transaccion)
+                        cliente = Cliente(
+                            dpi, nombreCliente, listaTransClientes)
+                        listaClientes.insertar(cliente)
+                        listaTransClientes = ListaDoble()
+        print("####################")
+        confiInicial = ConfiguracionInical(idConfi, idEmpresa, idPunto, listaActiveDesks, listaClientes)
+        listaConfi.insertar(confiInicial)
+        listaActiveDesks = ListaDoble()
+        listaClientes = ListaDoble()
+        # temp = temp.siguiente
+    return listaConfi

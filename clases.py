@@ -9,6 +9,8 @@ class Empresa:
         self.puntosAtencion = puntosAtencion
         self.transacciones = transacciones
 
+    def getiIDEmpresa(self):
+        return self.idEmpresa 
 
 class PuntoAtencion:
     def __init__ (self,idPA,nombrePA,direccionPA,escritorios,clientes):
@@ -18,12 +20,22 @@ class PuntoAtencion:
         self.escritorios = escritorios
         self.clientes = clientes
 
+    def setClientes(self, clientes):
+        self.clientes = clientes
+
 class Escritorio:
-    def __init__(self,idDesk,identificacionDesk,nombreEncargadoDesk,activeDesk):
+    def __init__(self, idDesk, identificacionDesk, nombreEncargadoDesk, activeDesk, idleDesk):
         self.idDesk = idDesk
         self.identificacionDesk = identificacionDesk
         self.nombreEncargadoDesk = nombreEncargadoDesk
         self.activeDesk = activeDesk
+        self.idleDesk = idleDesk
+
+    def setActiveDesk(self, activeDesk):
+        self.activeDesk = activeDesk
+    
+    def getActiveDesk(self):
+        return self.activeDesk
 
 class Transaccion:
     def __init__(self,idTransaccion,nombreTransaccion,tiempoAtencion):
