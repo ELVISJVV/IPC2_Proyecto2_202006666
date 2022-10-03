@@ -10,7 +10,8 @@ if __name__ == '__main__':
     listaEmpresas = ListaDoble()
     listaConfi = ListaDoble()
     rutas2 = ListaDoble()
-    listaDesks = ListaDoble()
+    listaIdleDesks = ListaDoble()
+    listaActiveDesk = ListaDoble()
     listaPA = ListaDoble()
     listaClientes = ListaDoble()
     listaTrans = ListaDoble()
@@ -19,8 +20,8 @@ if __name__ == '__main__':
         print("\n======= MENU PRINCIPAL ========")
         print("1. Configuración de empresas")
         print("2. Selección de empresa y punto de atención")
-        print("3. Seleccionar  Paciente")
-        print("4. Generar Reporte")
+        print("3. Listado de Empresas")
+        print("4. Listado de Configuracion ")
         print("5. Salir")
         print("================================")
         opcion = input()
@@ -83,8 +84,8 @@ if __name__ == '__main__':
                             print('Ingrese Encargado del escritorio')
                             encargado_escritorio = input()
 
-                            escritorio = Escritorio(id_escritorio, identificacion_escritorio, encargado_escritorio, True)
-                            listaDesks.insertar(escritorio)
+                            escritorio = Escritorio(id_escritorio, identificacion_escritorio, encargado_escritorio)
+                            listaIdleDesks.insertar(escritorio)
 
                             print('\nDesea agreagar otro escritorio')
                             print('1. Si')
@@ -97,9 +98,9 @@ if __name__ == '__main__':
                             else:
                                 break
                         
-                        punto_Atencion = PuntoAtencion(id_punto_atencion, nombre_punto_atencion, direccion_punto_atencion,listaDesks, listaClientes)
+                        punto_Atencion = PuntoAtencion(id_punto_atencion, nombre_punto_atencion, direccion_punto_atencion, listaActiveDesk,listaIdleDesks, listaClientes)
                         listaPA.insertar(punto_Atencion)
-                        listaDesks = ListaDoble()
+                        listaIdleDesks = ListaDoble()
 
                         print('\nDesea Agregar otro punto de Atencion')
                         print('1. Si')
@@ -144,7 +145,7 @@ if __name__ == '__main__':
 
                     print('\nSe ha creado la nueva empresa\n')
                 elif opcion1 == '4':
-                    try:
+                    # try:
                         print('Ingrese la ruta de su archivo: \n')
                         ruta2 = input('\t -> ')
                         rutas2.insertar(ruta2)
@@ -152,16 +153,20 @@ if __name__ == '__main__':
 
                         listaConfi.returnElement(1)
                         listaEmpresas.returnElement(1)
+                        print(listaEmpresas.returnElement(1).getDato().getiIDEmpresa())
+                        print(listaConfi.returnElement(1).getDato().getCodEmpresa())
+                        print(listaConfi.returnElement(1).dato.codEmpresa)
                         
                         for i in  range(1, int(listaEmpresas.size)+1, 1):
                             for j in range(1, listaConfi.size +1 , 1):
-                                listaEmpresas.returnElement(i).getiIDEmpresa()
+                                if listaEmpresas.returnElement(i).getDato().getIDEmpresa() == listaConfi.returnElement(j).getDato().getCodEmpresa():
+                                    pass
 
 
                         print("Se han agregado las configuraciones")
                         print("\n")
 
-                    except:
+                    # except:
                         print("NO se pudo cargar el archivo")
                         print("Intentalo Nuevamente")
                         print("\n")

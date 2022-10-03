@@ -146,18 +146,30 @@ class ListaDoble:
             print('\nPuntos Atencion \nidPA: {}\nnombrePA: {}\ndireccionPA: {}'.format(
                 temp.dato.idPA, temp.dato.nombrePA, temp.dato.direccionPA))
             
-            temp.dato.escritorios.mostrarEscritorios()
+            temp.dato.idlesDesks.mostrarEscritoriosInactivos()
+            temp.dato.activeDesks.mostrarActivosEscritorios()
 
             temp = temp.siguiente
     
-    def mostrarEscritorios(self):
+    def mostrarEscritoriosInactivos(self):
 
         temp = self.primero
 
         while temp != None:
 
-            print('\nEscritorios \nidDesk: {}\nidentificacionDesk: {}\nnombreEncargadoDesk: {}\nactiveDesk {}'.format(
-                temp.dato.idDesk, temp.dato.identificacionDesk, temp.dato.nombreEncargadoDesk, temp.dato.activeDesk))
+            print('\nEscritorios Inactivos \nidDesk: {}\nidentificacionDesk: {}\nnombreEncargadoDesk: {}\n'.format(
+                temp.dato.idDesk, temp.dato.identificacionDesk, temp.dato.nombreEncargadoDesk))
+
+            temp = temp.siguiente
+
+    def mostrarActivosEscritorios(self):
+
+        temp = self.primero
+
+        while temp != None:
+
+            print('\nEscritorios Activos \nidDesk: {}\nidentificacionDesk: {}\nnombreEncargadoDesk: {}\n'.format(
+                temp.dato.idDesk, temp.dato.identificacionDesk, temp.dato.nombreEncargadoDesk))
 
             temp = temp.siguiente
 
@@ -198,6 +210,7 @@ class ListaDoble:
                 temp.dato.idActiveDesk))
 
             temp = temp.siguiente
+
 
     def mostrarConfiClientes(self):
 
@@ -240,12 +253,14 @@ def cargarEmpresas(ruta, listaEmpresas):
     nombrePA = ''
     direccionPA = ''
     # Lista Escritorios
-    listaDesks = ListaDoble()
+    listaIdleDesks = ListaDoble()
     # Atributos Escritorio
     idDesk = ''
     identificacionDesk = ''
     nombreEncargadoDesk = ''
     activeDesk = ''
+    #lista Escritorios Activos
+    listaActiveDesk = ListaDoble()
     # Lista Transacciones
     listaTrans = ListaDoble()
     # Atributos Transaccion
@@ -287,18 +302,18 @@ def cargarEmpresas(ruta, listaEmpresas):
                                                 elif b.tag == 'encargado':
                                                     nombreEncargadoDesk = b.text
                                         escritorio = Escritorio(
-                                            idDesk, identificacionDesk, nombreEncargadoDesk, False)
-                                        listaDesks.insertar(escritorio)
+                                            idDesk, identificacionDesk, nombreEncargadoDesk)
+                                        listaIdleDesks.insertar(escritorio)
                                         idDesk = ''
                                         identificacionDesk = ''
                                         nombreEncargadoDesk = ''
                         puntoAtencion = PuntoAtencion(
-                            idPA, nombrePA, direccionPA, listaDesks, listaClientes)
+                            idPA, nombrePA, direccionPA, listaActiveDesk, listaIdleDesks, listaClientes)
                         listaPA.insertar(puntoAtencion)
                         idPA = ''
                         nombrePA = ''
                         direccionPA = ''
-                        listaDesks = ListaDoble()
+                        listaIdleDesks = ListaDoble()
                         listaClientes = ListaDoble()
                 elif subelemeto.tag == 'listaTransacciones':
                     for sub3 in subelemeto:

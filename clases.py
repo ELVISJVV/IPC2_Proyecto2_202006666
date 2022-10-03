@@ -1,6 +1,7 @@
 
 
 
+
 class Empresa:
     def __init__ (self, idEmpresa, nombreEmpresa,abreviaturaEmpresa,puntosAtencion,transacciones):
         self.idEmpresa = idEmpresa
@@ -13,36 +14,38 @@ class Empresa:
         return self.idEmpresa 
 
 class PuntoAtencion:
-    def __init__ (self,idPA,nombrePA,direccionPA,escritorios,clientes):
+    def __init__ (self,idPA,nombrePA,direccionPA,activeDesks,idlesDesks, clientes):
         self.idPA = idPA
         self.nombrePA = nombrePA
         self.direccionPA = direccionPA
-        self.escritorios = escritorios
+        self.activeDesks = activeDesks
+        self.idlesDesks = idlesDesks
         self.clientes = clientes
 
     def setClientes(self, clientes):
         self.clientes = clientes
 
+    def setActiveDesks(self, activeDesks):
+        self.activeDesks = activeDesks
+
+    def getActiveDesk(self):
+        return self.activeDesks
+
 class Escritorio:
-    def __init__(self, idDesk, identificacionDesk, nombreEncargadoDesk, activeDesk, idleDesk):
+    def __init__(self, idDesk, identificacionDesk, nombreEncargadoDesk):
         self.idDesk = idDesk
         self.identificacionDesk = identificacionDesk
         self.nombreEncargadoDesk = nombreEncargadoDesk
-        self.activeDesk = activeDesk
-        self.idleDesk = idleDesk
 
-    def setActiveDesk(self, activeDesk):
-        self.activeDesk = activeDesk
+
+
     
-    def getActiveDesk(self):
-        return self.activeDesk
-
 class Transaccion:
     def __init__(self,idTransaccion,nombreTransaccion,tiempoAtencion):
         self.idTransaccion  = idTransaccion 
         self.nombreTransaccion = nombreTransaccion
         self.tiempoAtencion = tiempoAtencion
-
+        
 
 
 
@@ -53,6 +56,9 @@ class ConfiguracionInical:
         self.codPunto = codPunto
         self.activeDesks = activeDesks
         self.clientes = clientes
+    
+    def getCodEmpresa(self):
+        return self.codEmpresa
 
 class ConfiEscritorio:
     def __init__(self,idActiveDesk):
