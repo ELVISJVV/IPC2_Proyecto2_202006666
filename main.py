@@ -151,17 +151,84 @@ if __name__ == '__main__':
                         rutas2.insertar(ruta2)
                         cargarConfiguracion(listaConfi,ruta2)
 
-                        listaConfi.returnElement(1)
-                        listaEmpresas.returnElement(1)
-                        print(listaEmpresas.returnElement(1).getDato().getiIDEmpresa())
-                        print(listaConfi.returnElement(1).getDato().getCodEmpresa())
-                        print(listaConfi.returnElement(1).dato.codEmpresa)
+                        # listaConfi.returnElement(1)
+                        # listaEmpresas.returnElement(1)
+                        # print(listaEmpresas.returnElement(1).getDato().getiIDEmpresa())
+                        # print(listaConfi.returnElement(1).getDato().getCodEmpresa())
+                        # print(listaConfi.returnElement(1).dato.codEmpresa)
                         
                         for i in  range(1, int(listaEmpresas.size)+1, 1):
-                            for j in range(1, listaConfi.size +1 , 1):
-                                if listaEmpresas.returnElement(i).getDato().getIDEmpresa() == listaConfi.returnElement(j).getDato().getCodEmpresa():
-                                    pass
+                            listanuevosdesks = ListaDoble()
+                            print("=============")
 
+                            for j in range(1, int(listaConfi.size) +1 , 1):
+
+                                get_id_empresa = listaEmpresas.returnElement(i).getDato().getIDEmpresa()
+                                get_id_empresa_confi = listaConfi.returnElement(j).getDato().getCodEmpresa()
+                                
+                                
+                                # si el id de la lista empresa coincide con el id de la empresa confi
+                                if get_id_empresa == get_id_empresa_confi:
+                                    
+                                    print('+++++++++++++')
+                                    print("coincidencia  id empresa")
+                                    print(get_id_empresa)
+                                    print('Coincidencia id empresa confi')
+                                    print(get_id_empresa_confi)
+
+                                    # for para verificar cual punto de atencion tiene coincidencia
+                                    for a in range(1, int(listaEmpresas.returnElement(i).getDato().getPuntosAtencion().size)+1, 1):
+                                        
+                                        get_idpa_empresa = listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIDPA()
+
+                                        get_idpa_confi = listaConfi.returnElement(j).getDato().getCodPunto()
+                                        if get_idpa_empresa == get_idpa_confi:
+
+
+                                            print('Coincidencia empresa Puntos')
+                                            print(listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIDPA())
+                                            print('Coincidencia  puntos confi')
+                                            print(listaConfi.returnElement(j).getDato().getCodPunto())        
+                                            contador = 1
+                                            # for b in range(1, int(listaConfi.returnElement(j).getDato().getActiveDesk().size) + 1, 1):
+                                            #     print(contador)
+                                            #     contador +=1
+                                            for b in range(1, int(listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIdlesDesk().size) + 1, 1):
+                                                
+                                                for c in range(1, int(listaConfi.returnElement(j).getDato().getActiveDesk().size) + 1, 1):
+                                                    
+                                                #     print(listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIdlesDesk().size)
+
+                                                    get_id_desk_empresa = listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIdlesDesk().returnElement(b).getDato().getIdDesk()
+                                                    get_id__desk_confi = listaConfi.returnElement(j).getDato().getActiveDesk().returnElement(c).getDato().getIdActiveDesk()
+
+                                                    if get_id_desk_empresa == get_id__desk_confi:
+
+                                                        print('revison')
+                                                        print(get_id_desk_empresa)
+                                                        print(get_id__desk_confi)
+
+                                                        print('fin revison')
+                                                        listanuevosdesks.insertar(listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIdlesDesk().returnElement(b).getDato())
+                                                        listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getActiveDesk().insertar(listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIdlesDesk().returnElement(b).getDato())
+                                                        print(listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIdlesDesk().returnElement(b).getDato())
+                                                        listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIdlesDesk().borrarNodo(listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIdlesDesk().returnElement(b).getDato())
+                                                        print('se pudo 2.0')
+                                                            # else:
+                                                            #     print('no se pudo 2.0')
+
+                                        else:
+                                            print('C no hay oincidencia empresa Puntos')
+                                            print(listaEmpresas.returnElement(i).getDato().getPuntosAtencion().returnElement(a).getDato().getIDPA())
+                                            print(' no hay Coincidencia  puntos confi')
+                                            print(listaConfi.returnElement(j).getDato().getCodPunto())
+
+                                else:
+                                    print('+++++++++++++')
+                                    print("no hay coincidencia  id empresa")
+                                    print(get_id_empresa)
+                                    print(' no hay Coincidencia id empresa confi')
+                                    print(get_id_empresa_confi)
 
                         print("Se han agregado las configuraciones")
                         print("\n")
@@ -172,7 +239,8 @@ if __name__ == '__main__':
                         print("\n")
                 elif opcion1 == '5':
                     salir1 = True
-
+                else:
+                    print('\nIngrese una opcion valida\n')
         elif opcion == '5':
             salir = True
         elif opcion == '3':
@@ -181,3 +249,8 @@ if __name__ == '__main__':
            pass
         elif opcion == '4':
             listaConfi.mostrarConfiguracion()
+        else: 
+            print('\nIngrese una opcion valida\n')
+
+
+

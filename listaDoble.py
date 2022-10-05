@@ -146,7 +146,9 @@ class ListaDoble:
             print('\nPuntos Atencion \nidPA: {}\nnombrePA: {}\ndireccionPA: {}'.format(
                 temp.dato.idPA, temp.dato.nombrePA, temp.dato.direccionPA))
             
+            print("Escritorios Inactivos")
             temp.dato.idlesDesks.mostrarEscritoriosInactivos()
+            print("Escritorios Activos")
             temp.dato.activeDesks.mostrarActivosEscritorios()
 
             temp = temp.siguiente

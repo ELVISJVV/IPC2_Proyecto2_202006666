@@ -2,6 +2,9 @@
 
 
 
+from pickletools import read_uint1
+
+
 class Empresa:
     def __init__ (self, idEmpresa, nombreEmpresa,abreviaturaEmpresa,puntosAtencion,transacciones):
         self.idEmpresa = idEmpresa
@@ -10,8 +13,11 @@ class Empresa:
         self.puntosAtencion = puntosAtencion
         self.transacciones = transacciones
 
-    def getiIDEmpresa(self):
+    def getIDEmpresa(self):
         return self.idEmpresa 
+
+    def getPuntosAtencion(self):
+        return self.puntosAtencion
 
 class PuntoAtencion:
     def __init__ (self,idPA,nombrePA,direccionPA,activeDesks,idlesDesks, clientes):
@@ -22,6 +28,9 @@ class PuntoAtencion:
         self.idlesDesks = idlesDesks
         self.clientes = clientes
 
+    def getIDPA(self):
+        return self.idPA
+
     def setClientes(self, clientes):
         self.clientes = clientes
 
@@ -30,6 +39,9 @@ class PuntoAtencion:
 
     def getActiveDesk(self):
         return self.activeDesks
+    
+    def getIdlesDesk(self):
+        return self.idlesDesks
 
 class Escritorio:
     def __init__(self, idDesk, identificacionDesk, nombreEncargadoDesk):
@@ -37,7 +49,8 @@ class Escritorio:
         self.identificacionDesk = identificacionDesk
         self.nombreEncargadoDesk = nombreEncargadoDesk
 
-
+    def getIdDesk(self):
+        return self.idDesk
 
     
 class Transaccion:
@@ -57,12 +70,24 @@ class ConfiguracionInical:
         self.activeDesks = activeDesks
         self.clientes = clientes
     
+    def getActiveDesk(self):
+        return self.activeDesks
+
     def getCodEmpresa(self):
         return self.codEmpresa
+
+    def getCodPunto(self):
+        return self.codPunto
 
 class ConfiEscritorio:
     def __init__(self,idActiveDesk):
         self.idActiveDesk = idActiveDesk
+
+    def getIdActiveDesk(self):
+        return self.idActiveDesk
+
+    def getIDActiveDesk(self):
+        return self.idActiveDesk
 
 class Cliente:
     def __init__ (self ,dpi,nombreCLiente,listadoTrans):
