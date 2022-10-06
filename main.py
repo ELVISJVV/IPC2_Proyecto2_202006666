@@ -525,7 +525,8 @@ if __name__ == '__main__':
 
                                     if seleccion_punto_atencion.getActiveDesk().size > 1:
                                         contador_desk += 1
-                                generarGraphviz(seleccion_punto_atencion.getClientesPA())
+                                if seleccion_punto_atencion.getClientesPA().size != 0:
+                                    generarGraphviz(seleccion_punto_atencion.getClientesPA())
                             else:
                                 print('No hay clientes que atender')
                         except:

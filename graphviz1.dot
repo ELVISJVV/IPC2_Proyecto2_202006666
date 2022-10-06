@@ -5,7 +5,7 @@
         subgraph cluster_p{
             label="Orden de Clientes"
             bgcolor = "#398D9C"
-        {rank = same; 
+        Columna1[label = "  Henry Ford ", fillcolor=yellow]; {rank = same;Columna1} 
         }
         }
         
