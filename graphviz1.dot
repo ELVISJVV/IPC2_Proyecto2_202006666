@@ -1,0 +1,11 @@
+
+        digraph L{
+        node [shape=box fillcolor="#FFEDBB" style = filled]
+
+        subgraph cluster_p{
+            label="Orden de Clientes"
+            bgcolor = "#398D9C"
+        {rank = same; 
+        }
+        }
+        

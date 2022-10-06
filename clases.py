@@ -18,6 +18,15 @@ class Empresa:
 
     def getPuntosAtencion(self):
         return self.puntosAtencion
+    
+    def getNombreEmpresa(self):
+        return self.nombreEmpresa
+
+    def getAbreviatura(self):
+        return self.abreviaturaEmpresa
+
+    def getTransacciones(self):
+        return self.transacciones
 
 class PuntoAtencion:
     def __init__ (self,idPA,nombrePA,direccionPA,activeDesks,idlesDesks, clientes):
@@ -31,8 +40,17 @@ class PuntoAtencion:
     def getIDPA(self):
         return self.idPA
 
+    def getNombrePA(self):
+        return self.nombrePA
+
+    def getDireccionPA(self):
+        return self.direccionPA
+
     def setClientes(self, clientes):
         self.clientes = clientes
+
+    def getClientesPA(self):
+        return self.clientes
 
     def setActiveDesks(self, activeDesks):
         self.activeDesks = activeDesks
@@ -51,13 +69,24 @@ class Escritorio:
 
     def getIdDesk(self):
         return self.idDesk
-
+    def getEncargado(self):
+        return self.nombreEncargadoDesk
     
 class Transaccion:
     def __init__(self,idTransaccion,nombreTransaccion,tiempoAtencion):
         self.idTransaccion  = idTransaccion 
         self.nombreTransaccion = nombreTransaccion
         self.tiempoAtencion = tiempoAtencion
+
+    def getTiempoAtencion(self):
+        return self.tiempoAtencion
+
+    def getIdTransaccion(self):
+        return self.idTransaccion
+
+    def getNombreTrans(self):
+        return self.nombreTransaccion
+    
         
 
 
@@ -79,6 +108,9 @@ class ConfiguracionInical:
     def getCodPunto(self):
         return self.codPunto
 
+    def getClientes(self):
+        return self.clientes
+
 class ConfiEscritorio:
     def __init__(self,idActiveDesk):
         self.idActiveDesk = idActiveDesk
@@ -90,14 +122,46 @@ class ConfiEscritorio:
         return self.idActiveDesk
 
 class Cliente:
-    def __init__ (self ,dpi,nombreCLiente,listadoTrans):
+    def __init__ (self ,dpi,nombreCLiente,listadoTrans,tiempoTransaccion, tiempoespera):
         self.dpi = dpi
         self.nombreCliente = nombreCLiente
         self.listadoTrans = listadoTrans
+        self.tiempoTransaccion = tiempoTransaccion
+        self.tiempoespera  = tiempoespera
+
+    def getTiempoTras(self):
+        return self.tiempoTransaccion
+
+    def getTiempoEspera(self):
+        return self.tiempoespera
+
+    def setTiempoTras(self, tiempoTransaccion):
+        self.tiempoTransaccion = tiempoTransaccion
+
+    def setTiempoEspera(self, tiempoespera):
+        self.tiempoespera = tiempoespera
+
+    def getListadoTrans(self):
+        return self.listadoTrans 
+
+    def getNombre(self):
+        return self.nombreCliente
+
+    def getDPI(self):
+        return self.dpi
+
 
     
 class ClienteTrans:
     def __init__(self,idTrans, cantTrans):
         self.idTrans = idTrans
         self.cantTrans = cantTrans
+
+    def getIdTrans(self):
+        return self.idTrans
+
+    def getCantTrans(self):
+        return self.cantTrans
+
+    
 

@@ -1,0 +1,41 @@
+
+        digraph L{
+        node [shape=box fillcolor="#FFEDBB" style = filled]
+
+        subgraph cluster_p{
+            label="Escritorios"
+            bgcolor = "#398D9C"
+        Columna1[label=<<TABLE  BORDER="0" CELLBORDER="1" CELLSPACING="0"> 
+            <TR>
+            <TD  > Encargado </TD> <TD> Isaac Newton </TD>
+
+            </TR>
+
+            <TR>
+            
+
+            <TD>ID Escritorio</TD>
+            <TD>A20</TD>
+            </TR>
+            
+            
+
+            </TABLE>>,group=1, fillcolor=yellow]; Columna2[label=<<TABLE  BORDER="0" CELLBORDER="1" CELLSPACING="0"> 
+            <TR>
+            <TD  > Encargado </TD> <TD> Julius Ramirez </TD>
+
+            </TR>
+
+            <TR>
+            
+
+            <TD>ID Escritorio</TD>
+            <TD>B10</TD>
+            </TR>
+            
+            
+
+            </TABLE>>,group=1, fillcolor=yellow]; Columna2-> Columna1; 
+        }
+        }
+        

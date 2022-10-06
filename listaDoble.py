@@ -130,7 +130,7 @@ class ListaDoble:
 
         while temp != None:
 
-            print('------------------------------------\nEmpresa \nID: {}\nNombre: {}\nAbreviatura: {}'.format(
+            print('-----------------------------------------\nEmpresa \nID: {}\nNombre: {}\nAbreviatura: {}'.format(
                 temp.dato.idEmpresa, temp.dato.nombreEmpresa, temp.dato.abreviaturaEmpresa))
 
             temp.dato.puntosAtencion.mostrarPuntosAtencion()
@@ -146,11 +146,15 @@ class ListaDoble:
             print('\nPuntos Atencion \nidPA: {}\nnombrePA: {}\ndireccionPA: {}'.format(
                 temp.dato.idPA, temp.dato.nombrePA, temp.dato.direccionPA))
             
-            print("Escritorios Inactivos")
+            
+            print("====Escritorios Inactivos=====")
             temp.dato.idlesDesks.mostrarEscritoriosInactivos()
-            print("Escritorios Activos")
+            print("========================")
+            print("====Escritorios Activos=====")
             temp.dato.activeDesks.mostrarActivosEscritorios()
-
+            print("========================")
+            print('Listado Clientes')
+            temp.dato.clientes.mostrarConfiClientes()
             temp = temp.siguiente
     
     def mostrarEscritoriosInactivos(self):
@@ -181,7 +185,7 @@ class ListaDoble:
 
         while temp != None:
 
-            print('\nTRANSACCIONES \nidTransaccion: {}\nnombreTransaccion: {}\ntiempoAtencion: {}'.format(
+            print('\nTRANSACCIONES EMPRESA  \nidTransaccion: {}\nnombreTransaccion: {}\ntiempoAtencion: {}'.format(
                 temp.dato.idTransaccion, temp.dato.nombreTransaccion, temp.dato.tiempoAtencion))
 
             temp = temp.siguiente
@@ -220,9 +224,11 @@ class ListaDoble:
 
         while temp != None:
 
-            print('\nClientes \nDPI: {}\nnombre Cliente: {}\n'.format(
-                temp.dato.dpi, temp.dato.nombreCliente))
+            # print('\nCLIENTE \nDPI: {}\nnombre Cliente: {}\nTiempo Transaccion: {}\nTiempo Espera: {}\n'.format(
+            #     temp.dato.dpi, temp.dato.nombreCliente, temp.dato.tiempoTransaccion, temp.dato.tiempoespera))
 
+            print('\nCLIENTE \nDPI: {}\nnombre Cliente: {}\n'.format(
+                temp.dato.dpi, temp.dato.nombreCliente))
             temp.dato.listadoTrans.mostrarTransClientes()
             temp = temp.siguiente
 
@@ -232,14 +238,75 @@ class ListaDoble:
 
         while temp != None:
 
-            print('\nTransacciones Clientes \nID Transaccion: {}\nCantidad Transaccion: {}\n'.format(
+            print('\nTransacciones Cliente \nID Transaccion: {}\nCantidad Transaccion: {}\n'.format(
                 temp.dato.idTrans, temp.dato.cantTrans))
 
             temp = temp.siguiente
 
+    def verEmpresa(self):
 
+        actual = self.primero
+        i = 1
+        print('|--------------------------- Empresas ---------------------------|')
+        print()
 
-    
+        while actual != None:
+
+            print('→ ' + str(i) + '. ' + "Nombre: " + str(actual.getDato().getNombreEmpresa()) + "   ID: " + str(actual.getDato().getIDEmpresa()) + "   Abreviatura: " + str((actual.getDato().getAbreviatura())))
+            print()
+
+            i += 1
+            actual = actual.getSiguiente()
+
+    def verPuntoAtencion(self):
+
+        actual = self.primero
+        i = 1
+        print('|--------------------------- Puntos de Atencion ---------------------------|')
+        print()
+
+        while actual != None:
+
+            print('→ ' + str(i) + '. ' + "Nombre: " + str(actual.getDato().getNombrePA()) + "   ID: " +
+                  str(actual.getDato().getIDPA()) + "   Direccion: " + str((actual.getDato().getDireccionPA())))
+            print()
+
+            i += 1
+            actual = actual.getSiguiente()
+
+    def verClientes(self):
+
+        actual = self.primero
+        i = 1
+        print(
+            '|--------------------------- Clientes en espera ---------------------------|')
+        print()
+
+        while actual != None:
+
+            print('→ ' + str(i) + '. ' + "Nombre: " + str(actual.getDato().getNombre()) + "   DPI: " + str(actual.getDato().getDPI()))
+            print()
+
+            i += 1
+            actual = actual.getSiguiente()
+
+    def verTransacciones(self):
+
+        actual = self.primero
+        i = 1
+        print(
+            '|----------------------- Transacciones -----------------------|')
+        print()
+
+        while actual != None:
+
+            print('→ ' + str(i) + '. ' + "Nombre: " + str(actual.getDato().getNombreTrans()) +
+                  "   ID: " + str(actual.getDato().getIdTransaccion()) + '  Tiempo: ' + str(actual.getDato().getTiempoAtencion()))
+            print()
+
+            i += 1
+            actual = actual.getSiguiente()
+
 def cargarEmpresas(ruta, listaEmpresas):
     # temp = self.primero
     # Lista para las empresas
@@ -309,13 +376,13 @@ def cargarEmpresas(ruta, listaEmpresas):
                                         idDesk = ''
                                         identificacionDesk = ''
                                         nombreEncargadoDesk = ''
-                        puntoAtencion = PuntoAtencion(
-                            idPA, nombrePA, direccionPA, listaActiveDesk, listaIdleDesks, listaClientes)
+                        puntoAtencion = PuntoAtencion(idPA, nombrePA, direccionPA, listaActiveDesk, listaIdleDesks, listaClientes)
                         listaPA.insertar(puntoAtencion)
                         idPA = ''
                         nombrePA = ''
                         direccionPA = ''
                         listaIdleDesks = ListaDoble()
+                        listaActiveDesk = ListaDoble()
                         listaClientes = ListaDoble()
                 elif subelemeto.tag == 'listaTransacciones':
                     for sub3 in subelemeto:
@@ -332,7 +399,7 @@ def cargarEmpresas(ruta, listaEmpresas):
                         idTrans = ''
                         nombreTrans = ''
                         tiempoTrans = ''
-            print("####################")
+            # print("####################")
             empresa = Empresa(idEmpresa, nameEmpresa,
                               abreviatura, listaPA, listaTrans)
             listaEmpresas.insertar(empresa)
@@ -341,6 +408,9 @@ def cargarEmpresas(ruta, listaEmpresas):
             abreviatura = ''
             listaPA = ListaDoble()
             listaTrans = ListaDoble()
+            listaActiveDesk = ListaDoble()
+            listaIdleDesks = ListaDoble()
+            listaClientes = ListaDoble()
             # temp = temp.siguiente
 
     return listaEmpresas
@@ -408,13 +478,17 @@ def cargarConfiguracion(listaConfi, ruta):
                                         listaTransClientes.insertar(
                                             transaccion)
                         cliente = Cliente(
-                            dpi, nombreCliente, listaTransClientes)
+                            dpi, nombreCliente, listaTransClientes,0,0)
                         listaClientes.insertar(cliente)
                         listaTransClientes = ListaDoble()
-        print("####################")
+        # print("####################")
         confiInicial = ConfiguracionInical(idConfi, idEmpresa, idPunto, listaActiveDesks, listaClientes)
         listaConfi.insertar(confiInicial)
         listaActiveDesks = ListaDoble()
         listaClientes = ListaDoble()
         # temp = temp.siguiente
     return listaConfi
+
+
+
+
